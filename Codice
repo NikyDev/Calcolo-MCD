@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Venturi.Nicolas._3J.MCD3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int div = 1, divmax = 1, i, min, da = 1, a = 1001, cicli = 0, n;
+            string strn;
+            Console.WriteLine("quanti numeri vuoi nei vettori");
+            strn = Console.ReadLine();
+            n = Convert.ToInt32(strn);
+            int[] num1 = new int[n];
+            int[] num2 = new int[n];
+            int[] fine = new int[n];
+            StreamWriter file = new StreamWriter("file.txt");
+            Random random1 = new Random((int)DateTime.Now.Millisecond);
+            Random random2 = new Random((int)DateTime.Now.Millisecond);
+            for (i = 0; i <= n - 1; i++)
+            {
+                Console.WriteLine("è stato inserito un numero nel primo vettore");
+                num1[i] = random1.Next(da, a);
+                Console.WriteLine(num1[i]);
+                Console.WriteLine("è stato inserito un numero nel secondo vettore");
+                num2[i] = random2.Next(da, a);
+                Console.WriteLine(num2[i]);
+                if (num2[i] < num1[i])
+                {
+                    min = num2[i];
+                }
+                else
+                {
+                    min = num1[i];
+                }
+                cicli++;
+                do
+                {
+                    cicli++;
+                    if (num1[i] % div == 0 && num2[i] % div == 0)
+                    {
+                        divmax = div;
+                    }
+                    div++;
+                } while (div <= min);
+                fine[i] = divmax;
+                divmax = 0;
+                div = 1;
+                file.WriteLine(fine[i]);
+            }
+            Console.WriteLine("i programma ha fatto un totale di " + cicli + " cicli");
+            Console.WriteLine("finito");
+            file.Close();
+            Console.ReadLine();
+
+        }
+    
+    }
+}
